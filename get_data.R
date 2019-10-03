@@ -6,6 +6,7 @@ library(rvest)            # to webscrap financial data
 library(gridExtra)        # to stack the charts
 library(scales)           # again to deal with dates but on the x-axis
 library(bdscale)          # to remove weekends and holidays
+library(reshape2)
 
 
 # setting up the path within the project for easier portability of code
@@ -50,4 +51,13 @@ df_all <- df %>% map_df(gather, key=key, value=value, -Index) %>%
           spread(key, value)
 #
 na.omit(df_all)
+
+
+x <- tibble(i = c("a","b","c"), j = 1:3)
+y <- tibble(i = c("b","c","d"), k = 4:6)
+z <- tibble(i = c("c","d","a"), l = 7:9)
+
+list(x, y, z) %>% 
+  map_df(gather, key=key, value=value, -i) %>% 
+  spread(key, value)
 
